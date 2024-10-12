@@ -15,11 +15,10 @@ import { productValidationSchema } from "../../validation/product.validation";
 interface ProductDialogProps {
   open: boolean;
   onClose: () => void;
-  onSave: (product: Product) => void;
   product?: Product | null;
 }
 
-function ProductDialog({ open, onClose, onSave, product }: ProductDialogProps) {
+function ProductDialog({ open, onClose, product }: ProductDialogProps) {
   const initialValues = {
     id: product?.id || -1,
     name: product?.name || "",
@@ -30,7 +29,8 @@ function ProductDialog({ open, onClose, onSave, product }: ProductDialogProps) {
   };
 
   const handleSubmit = (values: Product) => {
-    onSave(values as Product);
+    
+    // onSave(values as Product);
     onClose();
   };
 

@@ -1,16 +1,17 @@
 import React, { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { products, productsData } from "../../store/slices/productsSlice";
 import { Product } from "../../types/Product.type";
 import classes from "./Navbar.module.css";
+import { useAppDispatch, useAppSelector } from "../../store/hooks/useRedux";
+import { addProduct, setSelectedProduct } from "../../store/product/productSlice";
 
 interface NavbarProps {
-  onAddProduct: () => void;
+  openProductDailog: () => void;
 }
 
-function Navbar({ onAddProduct }: NavbarProps) {
-  const dispatch = useDispatch();
-  const all_products = useSelector(productsData);
+function Navbar({ openProductDailog }: NavbarProps) {
+  const dispatch = useAppDispatch();
+  const products = useAppSelector((state) => state.products.products);
   const options = ["Name"];
   const selectRef = useRef(null);
   const [choice, setChoice] = useState();
@@ -26,7 +27,7 @@ function Navbar({ onAddProduct }: NavbarProps) {
   };
 
   function sortByABC() {
-    const copy = [...all_products];
+    const copy = [...products];
     const sorted = copy.sort((a: Product, b: Product) => {
       const nameA = a.name.toUpperCase(); // ignore upper and lowercase
       const nameB = b.name.toUpperCase(); // ignore upper and lowercase
@@ -40,7 +41,6 @@ function Navbar({ onAddProduct }: NavbarProps) {
       // names must be equal
       return 0;
     });
-    dispatch(products(sorted));
   }
 
   function sortByValue(copy: []) {
@@ -49,9 +49,14 @@ function Navbar({ onAddProduct }: NavbarProps) {
     // return sorted;
   }
 
+  function handleAddProduct(){
+    openProductDailog();
+    dispatch(setSelectedProduct(null))
+  }
+
   return (
     <div className={classes.nav_bar}>
-      <button className={classes.add_btn} onClick={onAddProduct}>
+      <button className={classes.add_btn} onClick={handleAddProduct}>
         + Add
       </button>
       <input

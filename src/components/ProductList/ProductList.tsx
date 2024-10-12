@@ -5,14 +5,14 @@ import ProductCard from "./ProductCard/ProductCard";
 
 interface ProductListProps {
   products: Product[];
-  onSelectProduct: (product: Product) => void;
-  onEditProduct: (product: Product) => void;
+  // onSelectProduct: (product: Product) => void;
+  // onEditProduct: (product: Product) => void;
+  openProductDailog: () => void;
 }
 
 const ProductList = ({
   products,
-  onSelectProduct,
-  onEditProduct,
+  openProductDailog
 }: ProductListProps) => {
   return (
     <div>
@@ -20,8 +20,8 @@ const ProductList = ({
         <ProductCard
           key={product.id}
           product={product}
-          onSelectProduct={onSelectProduct}
-          onEditProduct={onEditProduct}
+          openProductDailog={openProductDailog}
+          // onEditProduct={onEditProduct}
         />
       ))}
     </div>
