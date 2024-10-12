@@ -4,7 +4,7 @@
 }
 
 .add_btn{
-    font-family: cursive;   
+    /* font-family: cursive;    */
 }
 
 .search_input, .sort_select{
@@ -12,5 +12,5 @@
 }
 
 .select_input{
-    font-family: cursive;   
+    /* font-family: cursive;    */
 }

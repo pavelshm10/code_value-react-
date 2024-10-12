@@ -1,15 +1,20 @@
 import React, { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { products, productsData } from "../../slices/productsSlice";
-import { Product } from "../../types/product";
-import styles from "./navbar.module.scss";
+import { products, productsData } from "../../store/slices/productsSlice";
+import { Product } from "../../types/Product.type";
+import classes from "./Navbar.module.css";
 
-function Navbar() { 
+interface NavbarProps {
+  onAddProduct: () => void;
+}
+
+function Navbar({ onAddProduct }: NavbarProps) {
   const dispatch = useDispatch();
   const all_products = useSelector(productsData);
   const options = ["Name"];
   const selectRef = useRef(null);
   const [choice, setChoice] = useState();
+
   const handleChange = (event: any) => {
     setChoice(event.target.value);
     if (typeof event.target.value == "string") {
@@ -45,17 +50,19 @@ function Navbar() {
   }
 
   return (
-    <div className={styles.nav_bar}>
-      <button className={styles.add_btn}>+ Add</button>
+    <div className={classes.nav_bar}>
+      <button className={classes.add_btn} onClick={onAddProduct}>
+        + Add
+      </button>
       <input
-        className={styles.search_input}
+        className={classes.search_input}
         type="text"
         placeholder="search products"
       />
-      <label className={styles.sort_select}>
+      <label className={classes.sort_select}>
         Sort by
         <select
-          className={styles.select_input}
+          className={classes.select_input}
           ref={selectRef}
           defaultValue={"default"}
           onChange={handleChange}

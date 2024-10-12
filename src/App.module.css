@@ -1,0 +1,18 @@
+.app_container{
+  display: flex;
+}
+
+.main{
+  /* border: 1px solid black; */
+  width: 70%;
+  padding: 20px;
+}
+
+.side_bar{
+  width: 30%;
+  /* border: 1px solid black; */
+}
+
+.title{
+  text-align: center;
+}
