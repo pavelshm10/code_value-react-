@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import ProductList from "./components/ProductList/ProductList";
 import ProductDetail from "./components/ProductDetail/ProductDetail";
 import { Product } from "./types/Product.type";
-import productsData from "./data.json";
+import productsData from "./mock/data.json";
 import classes from "./App.module.css";
 import Navbar from "./components/Navbar/Navbar";
 import ProductDialog from "./components/ProductDialog/ProductDialog";
@@ -10,13 +10,10 @@ const App = () => {
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [products, setProducts] = useState<Product[]>(productsData);
   const [isDialogOpen, setDialogOpen] = useState(false);
+  
   const handleAddProduct = () => {
-    setSelectedProduct(null); // No product selected means adding a new one
+    setSelectedProduct(null); 
     setDialogOpen(true);
-  };
-
-  const handleDialogClose = () => {
-    setDialogOpen(false);
   };
 
   const handleEditProduct = (product: Product) => {
@@ -40,22 +37,6 @@ const App = () => {
     }
     setDialogOpen(false);
   };
-
-  //   {
-  //     id: 1,
-  //     name: "Product 1",
-  //     price: 29.99,
-  //     image_url: "url_to_image_1",
-  //     description: "Description of Product 1"
-  //   },
-  //   {
-  //     id: 2,
-  //     name: "Product 2",
-  //     price: 39.99,
-  //     image_url: "url_to_image_2",
-  //     description: "Description of Product 2"
-  //   }
-  // ];
 
   return (
     <>
