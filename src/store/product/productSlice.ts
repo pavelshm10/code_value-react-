@@ -16,7 +16,7 @@ const productSlice = createSlice({
   reducers: {
     addProduct: (
       state,
-      action: PayloadAction<Omit<Product, "id" | "creationDate">>
+      action: PayloadAction<Product>
     ) => {
       const newProduct = {
         ...action.payload,

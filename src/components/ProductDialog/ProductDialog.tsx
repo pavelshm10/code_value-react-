@@ -9,9 +9,13 @@ import {
   IconButton,
 } from "@mui/material";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import CloseIcon from '@mui/icons-material/Close';
+import CloseIcon from "@mui/icons-material/Close";
 import { Product } from "../../types/Product.type";
 import { productValidationSchema } from "../../validation/product.validation";
+import { addProduct, editProduct, setSelectedProduct } from "../../store/product/productSlice";
+import { useAppDispatch } from "../../store/hooks/useRedux";
+import classes from "./ProductDialog.module.css";
+
 interface ProductDialogProps {
   open: boolean;
   onClose: () => void;
@@ -19,6 +23,8 @@ interface ProductDialogProps {
 }
 
 function ProductDialog({ open, onClose, product }: ProductDialogProps) {
+  const dispatch = useAppDispatch();
+
   const initialValues = {
     id: product?.id || -1,
     name: product?.name || "",
@@ -29,8 +35,17 @@ function ProductDialog({ open, onClose, product }: ProductDialogProps) {
   };
 
   const handleSubmit = (values: Product) => {
-    
-    // onSave(values as Product);
+    if (product) {
+      dispatch(editProduct(values));
+      dispatch(setSelectedProduct(values));
+    } else {
+      const newProduct: Product = {
+        id: Date.now(),
+        ...values,
+        creation_date: new Date().toISOString(),
+      };
+      dispatch(addProduct(newProduct));
+    }
     onClose();
   };
 
@@ -63,6 +78,7 @@ function ProductDialog({ open, onClose, product }: ProductDialogProps) {
                 onChange={handleChange}
                 fullWidth
                 margin="normal"
+                className={classes.inputField}
                 error={touched.name && Boolean(errors.name)}
                 helperText={<ErrorMessage name="name" />}
               />
@@ -72,6 +88,7 @@ function ProductDialog({ open, onClose, product }: ProductDialogProps) {
                 name="description"
                 value={values.description}
                 onChange={handleChange}
+                className={classes.inputField}
                 fullWidth
                 margin="normal"
               />
@@ -82,6 +99,7 @@ function ProductDialog({ open, onClose, product }: ProductDialogProps) {
                 type="number"
                 value={values.price}
                 onChange={handleChange}
+                className={classes.inputField}
                 fullWidth
                 margin="normal"
                 error={touched.price && Boolean(errors.price)}

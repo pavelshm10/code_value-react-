@@ -25,26 +25,6 @@ const App = () => {
     dispatch(setSelectedProduct(productsData[0]));
   }, [dispatch]);
 
-
-  const handleSaveProduct = (
-    productData: Omit<Product, "id" | "creationDate">
-  ) => {
-    if (selectedProduct) {
-      const updatedProducts = products.map((prod) =>
-        prod.id === selectedProduct.id ? { ...prod, ...productData } : prod
-      );
-      setProducts(updatedProducts);
-    } else {
-      const newProduct: Product = {
-        id: Date.now(),
-        ...productData,
-        creation_date: new Date().toISOString(),
-      };
-      setProducts([...products, newProduct]);
-    }
-    setDialogOpen(false);
-  };
-
   return (
     <>
       <h1 className={classes.title}>My Store</h1>
@@ -55,8 +35,6 @@ const App = () => {
           <ProductList
             products={products}
             openProductDailog={() => setDialogOpen(true)}
-            // onSelectProduct={setSelectedProduct}
-            // onEditProduct={handleEditProduct}
           />
         </div>
         <div className={classes.main}>

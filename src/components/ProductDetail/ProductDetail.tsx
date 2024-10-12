@@ -3,7 +3,6 @@ import { Product } from "../../types/Product.type";
 import classes from "./ProductDetail.module.css";
 
 const ProductDetail = ({ product }: { product: Product }) => {
-  console.log({ product });
   return (
     <div className={classes.product_detail}>
       <h1>{product.name}</h1>
