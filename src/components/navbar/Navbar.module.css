@@ -1,16 +1,11 @@
-.nav_bar{
-    width: 80%;
+.navbar{
+    /* width: 50%; */
     margin: 5px auto 5px auto;
+    display: flex;
+    gap: 15px;
+    padding-left: 15px;
+    align-items: center;
 }
 
-.add_btn{
-    /* font-family: cursive;    */
-}
 
-.search_input, .sort_select{
-    margin-left: 10px;
-}
 
-.select_input{
-    /* font-family: cursive;    */
-}

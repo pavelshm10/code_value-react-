@@ -1,18 +1,27 @@
-.app_container{
+body {
+  margin: 0;
+  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+.app_container {
   display: flex;
 }
 
-.main{
-  /* border: 1px solid black; */
+.main {
   width: 70%;
   padding: 20px;
 }
 
-.side_bar{
+.side_bar {
   width: 30%;
-  /* border: 1px solid black; */
 }
 
-.title{
+.title {
   text-align: center;
+  background-color: #6699cc;
+  height: 150px;
+  padding: 0;
+  margin: 0;
+  line-height: 8rem;
+  border: 3px solid black;
 }

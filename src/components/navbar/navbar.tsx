@@ -1,87 +1,49 @@
 import React, { useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Product } from "../../types/Product.type";
 import classes from "./Navbar.module.css";
 import { useAppDispatch, useAppSelector } from "../../store/hooks/useRedux";
-import { addProduct, setSelectedProduct } from "../../store/product/productSlice";
+import { setSelectedProduct } from "../../store/product/productSlice";
+import { Button, TextField } from "@mui/material";
 
 interface NavbarProps {
   openProductDailog: () => void;
+  filterProducts: (searchTerm: string) => void;
+  sortProducts: (sortBy: string) => void;
 }
 
-function Navbar({ openProductDailog }: NavbarProps) {
+function Navbar({
+  openProductDailog,
+  filterProducts,
+  sortProducts,
+}: NavbarProps) {
   const dispatch = useAppDispatch();
-  const products = useAppSelector((state) => state.products.products);
-  const options = ["Name"];
-  const selectRef = useRef(null);
-  const [choice, setChoice] = useState();
+  const [searchTerm, setSearchTerm] = useState<string>("");
 
-  const handleChange = (event: any) => {
-    setChoice(event.target.value);
-    if (typeof event.target.value == "string") {
-      sortByABC();
-    }
-    // else {
-    //   sortByValue();
-    // }
+  function handleAddProduct() {
+    openProductDailog();
+    dispatch(setSelectedProduct(null));
+  }
+
+  const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+    filterProducts(event.target.value);
+    setSearchTerm(event.target.value);
   };
 
-  function sortByABC() {
-    const copy = [...products];
-    const sorted = copy.sort((a: Product, b: Product) => {
-      const nameA = a.name.toUpperCase(); // ignore upper and lowercase
-      const nameB = b.name.toUpperCase(); // ignore upper and lowercase
-      if (nameA < nameB) {
-        return -1;
-      }
-      if (nameA > nameB) {
-        return 1;
-      }
-
-      // names must be equal
-      return 0;
-    });
-  }
-
-  function sortByValue(copy: []) {
-    // const copy = [...all_products];
-    // const sorted = copy.sort((a, b) => a.value - b.value);
-    // return sorted;
-  }
-
-  function handleAddProduct(){
-    openProductDailog();
-    dispatch(setSelectedProduct(null))
-  }
+  const handleSort = (event: React.ChangeEvent<HTMLInputElement>) => {
+    // sortProducts(event.target.value);
+  };
 
   return (
-    <div className={classes.nav_bar}>
-      <button className={classes.add_btn} onClick={handleAddProduct}>
+    <div className={classes.navbar}>
+      <Button onClick={handleAddProduct} variant="contained" color="primary">
         + Add
-      </button>
-      <input
-        className={classes.search_input}
-        type="text"
-        placeholder="search products"
+      </Button>
+      <TextField
+        label="Search Products By..."
+        variant="outlined"
+        value={searchTerm}
+        onChange={handleSearch}
+        margin="normal"
       />
-      <label className={classes.sort_select}>
-        Sort by
-        <select
-          className={classes.select_input}
-          ref={selectRef}
-          defaultValue={"default"}
-          onChange={handleChange}
-        >
-          <option value={"default"} disabled>
-            Choose an option
-          </option>
-          {options.map((option) => (
-            <option key={option} value={option}>
-              {option}
-            </option>
-          ))}
-        </select>
-      </label>
     </div>
   );
 }

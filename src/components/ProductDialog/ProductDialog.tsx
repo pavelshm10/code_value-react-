@@ -31,7 +31,7 @@ function ProductDialog({ open, onClose, product }: ProductDialogProps) {
     description: product?.description || "",
     price: product?.price || 0,
     image_url: product?.image_url || "",
-    creation_date: product?.creation_date,
+    creation_date: product?.creation_date || "",
   };
 
   const handleSubmit = (values: Product) => {
@@ -39,10 +39,10 @@ function ProductDialog({ open, onClose, product }: ProductDialogProps) {
       dispatch(editProduct(values));
       dispatch(setSelectedProduct(values));
     } else {
+      values.id= Date.now();
+      values.creation_date= new Date().toISOString();
       const newProduct: Product = {
-        id: Date.now(),
-        ...values,
-        creation_date: new Date().toISOString(),
+        ...values
       };
       dispatch(addProduct(newProduct));
     }
