@@ -9,6 +9,7 @@ import {
   setSelectedProduct,
 } from "../../../store/product/productSlice";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks/useRedux";
+import { Link } from "react-router-dom";
 
 interface ProductCardProps {
   product: Product;
@@ -31,7 +32,7 @@ function ProductCard({ product, openProductDailog }: ProductCardProps) {
   }
 
   return (
-    <div
+    <Link to={`/products/${product.id}`}
       className={`${classes.product_card} ${
         selectedProduct && selectedProduct.id === product.id
           ? classes.selected_product_card
@@ -39,7 +40,6 @@ function ProductCard({ product, openProductDailog }: ProductCardProps) {
       }`}
       onClick={handleEditProduct}
     >
-      {/* <div className=> */}
       <img
         className={classes.product_image}
         src={product.image_url}
@@ -57,7 +57,7 @@ function ProductCard({ product, openProductDailog }: ProductCardProps) {
           <DeleteIcon />
         </IconButton>
       </div>
-    </div>
+    </Link>
   );
 }
 

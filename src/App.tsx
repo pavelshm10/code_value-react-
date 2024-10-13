@@ -1,17 +1,20 @@
 import React, { useEffect, useState } from "react";
 import ProductList from "./components/ProductList/ProductList";
 import ProductDetail from "./components/ProductDetail/ProductDetail";
-import { Product } from "./types/Product.type";
 import productsData from "./mock/data.json";
 import classes from "./App.module.css";
-// import Navbar from "./components/Navbar/Nabar";
-import { useDispatch, useSelector } from "react-redux";
 import ProductDialog from "./components/ProductDialog/ProductDialog";
-import { RootState } from "./store/store";
 import { useAppDispatch, useAppSelector } from "./store/hooks/useRedux";
-import { setProducts, setSelectedProduct } from "./store/product/productSlice";
+import { setProducts } from "./store/product/productSlice";
 import Navbar from "./components/Navbar/Navbar";
 import { useFilterAndSortProducts } from "./hooks/useFilterAndSortProducts";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Navigate,
+} from "react-router-dom";
+import Pagination from "./components/Pagination/Pagination";
 
 const App = () => {
   const dispatch = useAppDispatch();
@@ -22,31 +25,52 @@ const App = () => {
     (state) => state.products.selectedProduct
   );
   const [isDialogOpen, setDialogOpen] = useState(false);
+  const itemsPerPage = 5;
+  const [currentPage, setCurrentPage] = useState(1);
+  const totalPages = Math.ceil(products.length / itemsPerPage);
+  const indexOfLastProduct = currentPage * itemsPerPage;
+  const indexOfFirstProduct = indexOfLastProduct - itemsPerPage;
+  const currentProducts = products.slice(
+    indexOfFirstProduct,
+    indexOfLastProduct
+  );
 
   useEffect(() => {
     dispatch(setProducts(productsData));
   }, [dispatch]);
 
   return (
-    <>
+    <Router>
       <h1 className={classes.title}>My Store</h1>
       <Navbar
         filterProducts={(searchTerm) => updateProductsBySearch(searchTerm)}
         sortProducts={(sortField) => updateProductsBySort(sortField)}
         openProductDailog={() => setDialogOpen(true)}
       />
-
       <div className={classes.app_container}>
         <div className={classes.side_bar}>
           <ProductList
-            products={products}
+            products={currentProducts}
             openProductDailog={() => setDialogOpen(true)}
           />
         </div>
         <div className={classes.main}>
-          {selectedProduct && <ProductDetail product={selectedProduct} />}
+          <Routes>
+            <Route path="/" element={<Navigate to="/products" />} />{" "}
+            {selectedProduct && (
+              <Route
+                path="/products/:id"
+                element={<ProductDetail product={selectedProduct} />}
+              />
+            )}
+          </Routes>
         </div>
       </div>
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={setCurrentPage}
+      />
       {isDialogOpen && (
         <ProductDialog
           open={isDialogOpen}
@@ -54,7 +78,7 @@ const App = () => {
           product={selectedProduct}
         />
       )}
-    </>
+    </Router>
   );
 };
 

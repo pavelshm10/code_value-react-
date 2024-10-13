@@ -5,8 +5,6 @@ import ProductCard from "./ProductCard/ProductCard";
 
 interface ProductListProps {
   products: Product[];
-  // onSelectProduct: (product: Product) => void;
-  // onEditProduct: (product: Product) => void;
   openProductDailog: () => void;
 }
 
@@ -21,7 +19,6 @@ const ProductList = ({
           key={product.id}
           product={product}
           openProductDailog={openProductDailog}
-          // onEditProduct={onEditProduct}
         />
       ))}
     </div>

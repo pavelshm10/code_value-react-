@@ -5,6 +5,7 @@ body {
 
 .app_container {
   display: flex;
+  height: 350px;
 }
 
 .main {
@@ -14,14 +15,15 @@ body {
 
 .side_bar {
   width: 30%;
+  overflow-y: scroll;
 }
 
 .title {
   text-align: center;
   background-color: #6699cc;
-  height: 150px;
+  height: 70px;
   padding: 0;
   margin: 0;
-  line-height: 8rem;
+  line-height: 4rem;
   border: 3px solid black;
 }
