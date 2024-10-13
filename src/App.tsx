@@ -35,9 +35,10 @@ const App = () => {
     indexOfLastProduct
   );
 
-  useEffect(() => {
-    dispatch(setProducts(productsData));
-  }, [dispatch]);
+  // useEffect(() => {
+  //   console.log("innnn");
+  //   dispatch(setProducts(productsData));
+  // }, []);
 
   return (
     <Router>
@@ -53,7 +54,13 @@ const App = () => {
             products={currentProducts}
             openProductDailog={() => setDialogOpen(true)}
           />
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={setCurrentPage}
+          />
         </div>
+
         <div className={classes.main}>
           <Routes>
             <Route path="/" element={<Navigate to="/products" />} />{" "}
@@ -66,11 +73,6 @@ const App = () => {
           </Routes>
         </div>
       </div>
-      <Pagination
-        currentPage={currentPage}
-        totalPages={totalPages}
-        onPageChange={setCurrentPage}
-      />
       {isDialogOpen && (
         <ProductDialog
           open={isDialogOpen}

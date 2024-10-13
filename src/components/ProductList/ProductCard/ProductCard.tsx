@@ -21,7 +21,7 @@ function ProductCard({ product, openProductDailog }: ProductCardProps) {
   const selectedProduct = useAppSelector(
     (state) => state.products.selectedProduct
   );
-  function handleEditProduct() {
+  function handleSelctedProduct() {
     dispatch(setSelectedProduct(product));
   }
 
@@ -32,23 +32,25 @@ function ProductCard({ product, openProductDailog }: ProductCardProps) {
   }
 
   return (
-    <Link to={`/products/${product.id}`}
+    <div
       className={`${classes.product_card} ${
         selectedProduct && selectedProduct.id === product.id
           ? classes.selected_product_card
           : ""
       }`}
-      onClick={handleEditProduct}
+      onClick={handleSelctedProduct}
     >
-      <img
-        className={classes.product_image}
-        src={product.image_url}
-        alt={product.name}
-      />
-      <div className="flex-column">
-        <h2 className={classes.product_name}>{product.name}</h2>
-        <p>{product.description}</p>
-      </div>
+      <Link to={`/products/${product.id}`} className={classes.link}>
+        <img
+          className={classes.product_image}
+          src={product.image_url}
+          alt={product.name}
+        />
+        <div className="flex-column">
+          <h2 className={classes.product_name}>{product.name}</h2>
+          <p>{product.description}</p>
+        </div>
+      </Link>
       <div className={classes.buttons_container}>
         <IconButton onClick={openProductDailog} aria-label="edit">
           <EditIcon />
@@ -57,7 +59,7 @@ function ProductCard({ product, openProductDailog }: ProductCardProps) {
           <DeleteIcon />
         </IconButton>
       </div>
-    </Link>
+    </div>
   );
 }
 

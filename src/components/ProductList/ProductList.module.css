@@ -1,0 +1,4 @@
+.product_list_container{
+    height: 350px;
+    overflow-y: scroll;
+}

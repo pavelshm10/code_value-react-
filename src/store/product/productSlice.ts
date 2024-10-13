@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Product } from "../../types/Product.type";
+import productsData from "../../mock/data.json";
 
 interface ProductState {
   products: Product[];
@@ -7,7 +8,7 @@ interface ProductState {
 }
 
 const initialState: ProductState = {
-  products: [],
+  products: productsData,
 };
 
 const productSlice = createSlice({

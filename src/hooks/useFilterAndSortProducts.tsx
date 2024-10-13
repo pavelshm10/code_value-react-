@@ -8,7 +8,8 @@ export const useFilterAndSortProducts = () => {
   const [products, setProducts] = useState<Product[]>([]);
 
   useEffect(() => {
-    if (!allProducts) return;
+    if (!allProducts.length) return;
+    console.log("remove ",allProducts.length)
     setProducts(allProducts);
   }, [allProducts]);
 

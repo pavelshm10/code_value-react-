@@ -13,7 +13,7 @@ const ProductList = ({
   openProductDailog
 }: ProductListProps) => {
   return (
-    <div>
+    <div className={classes.product_list_container}>
       {products.map((product) => (
         <ProductCard
           key={product.id}

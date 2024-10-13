@@ -1,5 +1,9 @@
 .product_detail{
     border: 3px solid black;
-    height: 70%;
     padding: 15px;
+    height: 300px;
+}
+
+.image{
+    height: 100px;
 }
