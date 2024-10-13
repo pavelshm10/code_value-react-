@@ -39,14 +39,15 @@ function ProductCard({ product, openProductDailog }: ProductCardProps) {
       }`}
       onClick={handleEditProduct}
     >
-      <div>
-        <img
-          className={classes.product_image}
-          src={product.image_url}
-          alt={product.name}
-        />
+      {/* <div className=> */}
+      <img
+        className={classes.product_image}
+        src={product.image_url}
+        alt={product.name}
+      />
+      <div className="flex-column">
         <h2 className={classes.product_name}>{product.name}</h2>
-        <p className={classes.product_price}>${product.price.toFixed(2)}</p>
+        <p>{product.description}</p>
       </div>
       <div className={classes.buttons_container}>
         <IconButton onClick={openProductDailog} aria-label="edit">

@@ -38,9 +38,5 @@
 }
 
 .buttons_container{
-  float: right;
-  /* margin: auto; */
-  /* margin-left: 50px; */
-  /* display: flex;
-  justify-content: flex-end; */
+  display: flex;
 }
