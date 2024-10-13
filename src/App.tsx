@@ -32,7 +32,7 @@ const App = () => {
       <h1 className={classes.title}>My Store</h1>
       <Navbar
         filterProducts={(searchTerm) => updateProductsBySearch(searchTerm)}
-        sortProducts={(sortBy) => updateProductsBySort(sortBy)}
+        sortProducts={(sortField) => updateProductsBySort(sortField)}
         openProductDailog={() => setDialogOpen(true)}
       />
 
